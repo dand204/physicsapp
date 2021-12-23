@@ -184,7 +184,7 @@ export default {
   },
   methods: {
     async fetchUsers (item) {
-      return fetch("lib1")
+      return fetch("https://raw.githubusercontent.com/dand204/physicsapp/main/app/src/renderer/pages/lib1.json")
         .then(res => res.json())
         .then(json => (item.children.push(...json)))
         .catch(err => console.warn(err))
