@@ -7,8 +7,9 @@
     <v-row justify="space-between"
     >
     <v-card justify="space-between" width="400px"
-            class="light-blue lighten-2  rounded mx-3 pl-1 "
+            class="light-blue lighten-2  rounded-lg mx-4 pl-1 mb-4"
             color="white"
+
     dark>
       <v-col cols=""
              >
