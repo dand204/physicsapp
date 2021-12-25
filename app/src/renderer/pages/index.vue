@@ -1,6 +1,5 @@
 <template>
 <v-app>
-  <v-card class="">
 
     <v-card-title class="ma-2">
       Правила
@@ -127,7 +126,7 @@
         </v-scroll-y-transition>
       </v-col>
     </v-row>
-  </v-card>
+
 </v-app>
 </template>
 
