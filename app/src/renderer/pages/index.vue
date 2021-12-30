@@ -177,7 +177,7 @@ export default {
       }
   },
   methods: {
-    async fetchUsers (item) {
+    async fetchRules (item) {
       return fetch("https://raw.githubusercontent.com/dand204/physicsapp/main/app/src/renderer/pages/lib1.json")
         .then(res => res.json())
         .then(json => (this.rules.push(...json)))
