@@ -4,15 +4,11 @@
     <v-card-title class="ma-2">
       Правила
     </v-card-title>
-    <v-row justify="space-between"
-    >
+    <v-row justify="space-between">
     <v-card justify="space-between" width="400px"
             class="light-blue lighten-2  rounded-lg mx-4 pl-1 mb-4"
-            color="white"
-
-    dark>
-      <v-col cols=""
-             >
+            color="white" dark>
+      <v-col cols="">
         <v-responsive max-width="2cols" class="">
           <v-text-field
             dense
@@ -35,7 +31,7 @@
           open-all
           :active.sync="active"
           :items="items"
-          :load-children="fetchUsers"
+          :load-children="fetchRules"
           :open.sync="open"
           activatable
           color="white --text"
@@ -132,13 +128,6 @@
 </template>
 
 <script>
-const avatars = [
-  '?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban',
-  '?accessoriesType=Sunglasses&avatarStyle=Circle&clotheColor=Gray02&clotheType=ShirtScoopNeck&eyeType=EyeRoll&eyebrowType=RaisedExcited&facialHairColor=Red&facialHairType=BeardMagestic&hairColor=Red&hatColor=White&mouthType=Twinkle&skinColor=DarkBrown&topType=LongHairBun',
-  '?accessoriesType=Prescription02&avatarStyle=Circle&clotheColor=Black&clotheType=ShirtVNeck&eyeType=Surprised&eyebrowType=Angry&facialHairColor=Blonde&facialHairType=Blank&hairColor=Blonde&hatColor=PastelOrange&mouthType=Smile&skinColor=Black&topType=LongHairNotTooLong',
-  '?accessoriesType=Round&avatarStyle=Circle&clotheColor=PastelOrange&clotheType=Overall&eyeType=Close&eyebrowType=AngryNatural&facialHairColor=Blonde&facialHairType=Blank&graphicType=Pizza&hairColor=Black&hatColor=PastelBlue&mouthType=Serious&skinColor=Light&topType=LongHairBigHair',
-  '?accessoriesType=Kurt&avatarStyle=Circle&clotheColor=Gray01&clotheType=BlazerShirt&eyeType=Surprised&eyebrowType=Default&facialHairColor=Red&facialHairType=Blank&graphicType=Selena&hairColor=Red&hatColor=Blue02&mouthType=Twinkle&skinColor=Pale&topType=LongHairCurly',
-]
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
 export default {
   data: () => ({
@@ -148,30 +137,22 @@ export default {
     rules: [],
     search: null,
     caseSensitive: false,
+    rules2d: []
 
   }),
   computed: {
     items () {
       return [
         {
-          name: 'Раздел 1',
+          name: 'Раздел',
           children: this.rules,
-
         },
-        {
-          name: 'Раздел 2',
-          children: this.rules,
-
-        },
-
       ]
-
-
     },
     selected () {
       if (!this.active.length) return undefined
       const id = this.active[0]
-      return this.rules.find(user => user.id === id)
+      return  this.rules2d.find(rules => rules.id === id);
     },
     filter () {
       return this.caseSensitive
@@ -180,17 +161,27 @@ export default {
     },
   },
   watch: {
-    selected: 'randomAvatar',
+      rules: function(val) {
+        var me = this;
+        this.rules.forEach(function (item) {
+          me.rules2d.push(item);
+          var children = item.children
+          if (typeof children !== "undefined") {
+            var me2 = me
+            children.forEach(function (item2) {
+              me2.rules2d.push(item2)
+            });
+          }
+        });
+        console.log(this.rules2d)
+      }
   },
   methods: {
     async fetchUsers (item) {
       return fetch("https://raw.githubusercontent.com/dand204/physicsapp/main/app/src/renderer/pages/lib1.json")
         .then(res => res.json())
-        .then(json => (item.children.push(...json)))
+        .then(json => (this.rules.push(...json)))
         .catch(err => console.warn(err))
-    },
-    randomAvatar () {
-      this.avatar = avatars[Math.floor(Math.random() * avatars.length)]
     },
   },
 }
