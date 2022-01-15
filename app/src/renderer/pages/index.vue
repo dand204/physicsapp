@@ -1,13 +1,13 @@
 <template>
 <v-app>
 
-    <v-card-title class="ma-2">
+    <v-card-title class="ma-2 rls">
       Правила
     </v-card-title>
     <v-row justify="space-between">
-    <v-card justify="space-between" width="400px"
-            class="light-blue lighten-2  rounded-lg mx-4 pl-1 mb-4"
-            color="white" dark>
+    <v-card justify="space-between" width="30%" max-width="470px" min-width="300px"
+            class="deep-orange accent-4 rounded-lg mx-4 pl-1 mb-4"
+             dark>
       <v-col cols="">
         <v-responsive max-width="2cols" class="">
           <v-text-field
@@ -34,14 +34,14 @@
           :load-children="fetchRules"
           :open.sync="open"
           activatable
-          color="white --text"
+          color="grey lighten-5 --text"
           open-on-click
           transition
         >
 
           <template v-slot:prepend="{ item }">
             <v-icon v-if="!item.children">
-              mdi-account
+              mdi-react
             </v-icon>
           </template>
 
@@ -67,21 +67,19 @@
           <v-card
             v-else
             :key="selected.id"
-            class="pt-6 mx-auto ma-1 light-green lighten-5"
-            rounded="rounded"
+            class="pt-5 mx-auto deep-orange lighten-5 pl-1 mb-4"
+            width="95%"
+            rounded="lg"
             flat
 
           >
             <v-card-text>
 
-              <h3 class="text-h5 mb-2">
+              <h3 class="text-h5 mb-2 font-weight-bold black--text">
                 {{ selected.name }}
               </h3>
-              <div class="blue--text mb-2">
-                {{ selected.email }}
-              </div>
-              <div class="blue--text subheading font-weight-bold">
-                {{ selected.username }}
+              <div class="black--text">
+                {{ selected.additional }}
               </div>
             </v-card-text>
 
@@ -89,35 +87,16 @@
               class="text-left"
               tag="v-card-text"
             >
-              <v-col
-                class="text-right mr-4 mb-2"
-                tag="strong"
-                cols="5"
-              >
-                Company:
+
+              <v-col class="text-left pa-1">
+                <div class="container" >
+                  <markdown-it-vue
+                    class="md-body markdown-body black--text"
+                    :content= "selected.data"
+                    :options="options"
+                  />
+                </div>
               </v-col>
-              <v-col>{{ selected.company.name }}</v-col>
-              <v-col
-                class="text-right mr-4 mb-2"
-                tag="strong"
-                cols="5"
-              >
-                Website:
-              </v-col>
-              <v-col>
-                <a
-                  :href="`//${selected.website}`"
-                  target="_blank"
-                >{{ selected.website }}</a>
-              </v-col>
-              <v-col
-                class="text-right mr-4 mb-2"
-                tag="strong"
-                cols="5"
-              >
-                Phone:
-              </v-col>
-              <v-col>{{ selected.phone }}</v-col>
             </v-row>
           </v-card>
         </v-scroll-y-transition>
@@ -129,8 +108,68 @@
 
 <script>
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
+import MarkdownItVue from 'markdown-it-vue'
 export default {
   data: () => ({
+    testt: "# test \n" +  " **Inline Math**: $\\sqrt{3x-1}+(1+x)^2$  \n" +
+      " **Block Math**  " + " $\\left(\\LARGE{AB}\\right)$ \n" +
+      "$$\\begin{array}{c}\n" +
+      "\n" +
+      "      \\nabla \\times \\vec{\\mathbf{B}} -\\, \\frac1c\\, \\frac{\\partial\\vec{\\mathbf{K}}}{\\partial t} &\n" +
+      "      = \\frac{4\\pi}{c}\\vec{\\mathbf{j}}    \\nabla \\cdot \\vec{\\mathbf{E}} & = 4 \\pi \\rho \\\\\n" +
+      "\n" +
+      "      \\nabla \\times \\vec{\\mathbf{E}}\\, +\\, \\frac1c\\, \\frac{\\partial\\vec{\\mathbf{B}}}{\\partial t} & = \\vec{\\mathbf{0}} \\\\\n" +
+      "\n" +
+      "      \\nabla \\cdot \\vec{\\mathbf{B}} & = 0\n" +
+      "\n" +
+      "      \\end{array}$$" +
+      "\n" + "$$\\begin{align*} a&=b+c \\\\d+e&=f \\end{align*}$$" + "\n"+ "$$\\sum_{\substack{0<i<m\\\0<j<n}}$$" + "\n" +
+      "- [x] Mercury\n" +
+      "- [x] Venus\n" +
+      "- [x] Earth (Orbit/Moon)\n" +
+      "- [x] Mars\n" +
+      "- [ ] Jupiter\n" +
+      "- [ ] Saturn\n" +
+      "- [ ] Uranus\n" +
+      "- [ ] Neptune\n" +
+      "- [ ] Comet Haley",
+    options: {
+      markdownIt: {
+        linkify: true,
+        html:    true,
+        breaks: true,
+        typographer:  false,
+        quotes: '“”‘’',
+
+      },
+  linkAttributes: {
+    attrs: {
+      target: '_blank',
+        rel: 'noopener'
+    }
+  },
+  katex: {
+    throwOnError: false,
+      errorColor: 'red'
+  },
+  icons: 'font-awesome',
+    githubToc: {
+  tocFirstLevel: 2,
+    tocLastLevel: 3,
+    tocClassName: 'toc',
+    anchorLinkSymbol: '',
+    anchorLinkSpace: false,
+    anchorClassName: 'anchor',
+    anchorLinkSymbolClassName: 'octicon octicon-link'
+},
+  mermaid: {
+    theme: 'default'
+  },
+  image: {
+    hAlign: 'left',
+      viewer: true
+  }
+    },
     active: [],
     avatar: null,
     open: [],
@@ -140,6 +179,9 @@ export default {
     rules2d: []
 
   }),
+  components: {
+    MarkdownItVue
+  },
   computed: {
     items () {
       return [
@@ -192,5 +234,16 @@ export default {
 * {
   font-family: Roboto, sans-serif;
 
+}
+.markdown-body {
+  font-family: 'Nunito', sans-serif;
+  font-size: medium;
+  font-weight: 500;
+  padding-inline: 10%;
+}
+
+.rls {
+  font-size: x-large;
+  font-weight: bold;
 }
 </style>

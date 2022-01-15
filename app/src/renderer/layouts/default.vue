@@ -1,5 +1,7 @@
 <template>
+
   <v-app>
+    <link rel="stylesheet" href="https://unpkg.com/katex@0.6.0/dist/katex.min.css">
     <app-header />
     <nuxt />
   </v-app>
@@ -21,5 +23,10 @@ body {
   padding: 5px;
   overflow: hidden;
 }
-
+.v-application code {
+padding: 0;
+}
+span.mord.accent {
+  background-color: rgb(255 255 255 / 12%) !important;
+}
 </style>

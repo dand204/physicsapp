@@ -3,7 +3,8 @@ import BrowserWinHandler from './BrowserWinHandler'
 const winHandler = new BrowserWinHandler({
   height: 700,
   width: 1300,
-  resizable: false,
+  minWidth: 800,
+  minHeight: 390
 })
 winHandler.onCreated(_browserWindow => {
   winHandler.loadPage('/')
