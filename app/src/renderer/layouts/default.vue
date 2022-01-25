@@ -19,8 +19,6 @@ export default {
 <style>
 body {
   margin: 0 !important;
-  top: 20px;
-  padding: 5px;
   overflow: hidden;
 }
 .v-application code {

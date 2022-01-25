@@ -3,13 +3,10 @@
     app
     color="white"
     flat
-    class="ma-2">
+    class="ma-2 ">
 
-    <div class="right-corner">
+    <div class="mx-auto">
     <v-container>
-      <v-avatar
-        size="32">
-      </v-avatar>
       <v-btn
         v-for="link in links"
         :key="link"
@@ -18,7 +15,6 @@
 
         {{ link.name }}
       </v-btn>
-      <v-spacer></v-spacer>
     </v-container>
     </div>
   </v-app-bar>
@@ -36,7 +32,8 @@ export default {
       {
         name : 'Формулы',
         link: '/other',
-      }
+      },
+
     ],
   }),
 }
@@ -44,14 +41,10 @@ export default {
 <style>
 
 /*noinspection ALL*/
-.right-corner {
-  margin: 0 30%;
-  display: inline;
 
-}
 header {
 top: 0;
-  max-height: 0px;
+  max-height: 0;
 }
 </style>
 

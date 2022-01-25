@@ -5,11 +5,11 @@
       Правила
     </v-card-title>
     <v-row justify="space-between">
-    <v-card justify="space-between" width="30%" max-width="470px" min-width="300px"
-            class="deep-orange accent-4 rounded-lg mx-4 pl-1 mb-4"
-             dark>
+    <v-card justify="space-between" width="33%" max-width="480px" min-width="200px" max-height="1700px"
+            class="deep-orange accent-4 rounded-lg mx-5 mb-5"
+             dark elevation="5">
       <v-col cols="">
-        <v-responsive max-width="2cols" class="">
+        <v-responsive max-width="2cols">
           <v-text-field
             dense
             flat
@@ -62,14 +62,15 @@
             class="text-h6 grey--text text--lighten-1 font-weight-light"
             style=""
           >
-            Welcome Info
+            В данном разделе можно найти различные законы физики
           </div>
           <v-card
             v-else
             :key="selected.id"
-            class="pt-5 mx-auto deep-orange lighten-5 pl-1 mb-4"
-            width="95%"
+            class="pt-4 mb-3 mx-auto "
+            width="94%"
             rounded="lg"
+            elevation="5"
             flat
 
           >
@@ -88,7 +89,7 @@
               tag="v-card-text"
             >
 
-              <v-col class="text-left pa-1">
+              <v-col class="text-left">
                 <div class="container" >
                   <markdown-it-vue
                     class="md-body markdown-body black--text"
@@ -107,32 +108,9 @@
 </template>
 
 <script>
-const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
 import MarkdownItVue from 'markdown-it-vue'
 export default {
   data: () => ({
-    testt: "# test \n" +  " **Inline Math**: $\\sqrt{3x-1}+(1+x)^2$  \n" +
-      " **Block Math**  " + " $\\left(\\LARGE{AB}\\right)$ \n" +
-      "$$\\begin{array}{c}\n" +
-      "\n" +
-      "      \\nabla \\times \\vec{\\mathbf{B}} -\\, \\frac1c\\, \\frac{\\partial\\vec{\\mathbf{K}}}{\\partial t} &\n" +
-      "      = \\frac{4\\pi}{c}\\vec{\\mathbf{j}}    \\nabla \\cdot \\vec{\\mathbf{E}} & = 4 \\pi \\rho \\\\\n" +
-      "\n" +
-      "      \\nabla \\times \\vec{\\mathbf{E}}\\, +\\, \\frac1c\\, \\frac{\\partial\\vec{\\mathbf{B}}}{\\partial t} & = \\vec{\\mathbf{0}} \\\\\n" +
-      "\n" +
-      "      \\nabla \\cdot \\vec{\\mathbf{B}} & = 0\n" +
-      "\n" +
-      "      \\end{array}$$" +
-      "\n" + "$$\\begin{align*} a&=b+c \\\\d+e&=f \\end{align*}$$" + "\n"+ "$$\\sum_{\substack{0<i<m\\\0<j<n}}$$" + "\n" +
-      "- [x] Mercury\n" +
-      "- [x] Venus\n" +
-      "- [x] Earth (Orbit/Moon)\n" +
-      "- [x] Mars\n" +
-      "- [ ] Jupiter\n" +
-      "- [ ] Saturn\n" +
-      "- [ ] Uranus\n" +
-      "- [ ] Neptune\n" +
-      "- [ ] Comet Haley",
     options: {
       markdownIt: {
         linkify: true,
@@ -186,7 +164,7 @@ export default {
     items () {
       return [
         {
-          name: 'Раздел',
+          name: 'Разделы',
           children: this.rules,
         },
       ]
@@ -215,12 +193,12 @@ export default {
             });
           }
         });
-        console.log(this.rules2d)
+
       }
   },
   methods: {
     async fetchRules (item) {
-      return fetch("https://raw.githubusercontent.com/dand204/physicsapp/main/app/src/renderer/pages/lib1.json")
+      return fetch("https://raw.githubusercontent.com/dand204/physicsapp/main/app/src/extraResources/lib1.json")
         .then(res => res.json())
         .then(json => (this.rules.push(...json)))
         .catch(err => console.warn(err))

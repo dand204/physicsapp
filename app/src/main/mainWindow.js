@@ -4,7 +4,8 @@ const winHandler = new BrowserWinHandler({
   height: 700,
   width: 1300,
   minWidth: 800,
-  minHeight: 390
+  minHeight: 390,
+  autoHideMenuBar: true,
 })
 winHandler.onCreated(_browserWindow => {
   winHandler.loadPage('/')
