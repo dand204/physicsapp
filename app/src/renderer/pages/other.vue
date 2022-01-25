@@ -47,8 +47,7 @@
     </v-card-text>
     </v-card>
   <v-bottom-navigation
-    horizontal
-    class=""
+    class="mx-auto blocks"
     :value="value"
     color="teal"
     grow
@@ -79,13 +78,13 @@
       v-on:click="fetchFormulas(4)">
       <span>Оптика</span>
 
-      <v-icon>reflect-horizontal</v-icon>
+      <v-icon>mdi-reflect-horizontal</v-icon>
     </v-btn>
     <v-btn
       v-on:click="fetchFormulas(4)">
       <span>Колебания и волны</span>
 
-      <v-icon>waveform</v-icon>
+      <v-icon>mdi-waveform</v-icon>
     </v-btn>
   </v-bottom-navigation>
 
@@ -126,5 +125,7 @@ export default {
   font-size: x-large;
   font-weight: bold;
 }
-
+.blocks span {
+  font-size: 93%;
+}
 </style>
