@@ -37,10 +37,11 @@
     "sass-loader": "10.2.0",
     "vuetify": "^2.5.10",
     "webpack": "^4.46.0",
-    "webpack-node-externals": "^3.0.0"
-  },
-  "dependencies": {
+    "webpack-node-externals": "^3.0.0",
     "babel-runtime": "^6.26.0",
     "markdown-it-vue": "^1.1.6"
+  },
+  "dependencies": {
+
   }
 }

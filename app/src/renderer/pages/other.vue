@@ -29,6 +29,8 @@
 
               >
                 {{ tag.name }}
+
+
               </v-chip>
 
             </v-chip-group>
@@ -45,6 +47,17 @@
       >
       {{ selected.name }}
     </v-card-text>
+      <markdown-it-vue v-if="selected !== undefined"
+        class="text-h1 text-center md-body markdown-body black--text mx-auto"
+        :content= "selected.formula"
+        :options="options"
+      />
+      <markdown-it-vue v-if="selected !== undefined"
+        class="markdown-body text-center my-auto black--text"
+        :content= "selected.description"
+        :options="options"
+      />
+
     </v-card>
   <v-bottom-navigation
     class="mx-auto blocks"
@@ -62,27 +75,27 @@
 
     <v-btn
       v-on:click="fetchFormulas(2)">
-      <span>Электричество и магнетизм</span>
+      <span>Электричество</span>
 
       <v-icon>mdi-lightning-bolt</v-icon>
     </v-btn>
-
     <v-btn
       v-on:click="fetchFormulas(3)">
+      <span>Магнитизм</span>
+
+      <v-icon>mdi-magnet</v-icon>
+    </v-btn>
+
+    <v-btn
+      v-on:click="fetchFormulas(4)">
       <span>Моллекулярная физика</span>
 
       <v-icon>mdi-atom-variant</v-icon>
     </v-btn>
 
     <v-btn
-      v-on:click="fetchFormulas(4)">
-      <span>Оптика</span>
-
-      <v-icon>mdi-reflect-horizontal</v-icon>
-    </v-btn>
-    <v-btn
-      v-on:click="fetchFormulas(4)">
-      <span>Колебания и волны</span>
+      v-on:click="fetchFormulas(5)">
+      <span>Колебания</span>
 
       <v-icon>mdi-waveform</v-icon>
     </v-btn>
@@ -91,8 +104,26 @@
   </v-app>
 </template>
 <script>
+import MarkdownItVue from "markdown-it-vue";
+
 export default {
   data: () => ({
+    options: {
+      markdownIt: {
+        linkify: true,
+        html:    true,
+        breaks: true,
+        typographer:  false,
+        quotes: '“”‘’',
+      },
+      katex: {
+        throwOnError: false,
+        errorColor: 'red'
+      },
+      icons: 'font-awesome',
+      mermaid: {
+        theme: 'default'
+      } },
     selection: [],
     value: 0,
     tags: [],
@@ -108,6 +139,9 @@ export default {
     std: {
       this.fetchFormulas(1)
     }
+  },
+  components: {
+    MarkdownItVue
   },
   methods: {
   fetchFormulas (tm) {
@@ -127,5 +161,15 @@ export default {
 }
 .blocks span {
   font-size: 93%;
+}
+.markdown-body {
+  font-family: 'Nunito', sans-serif;
+  font-size: medium;
+  font-weight: 500;
+  align-content: center;
+  align-items: center;
+}
+.gt {
+height: max-content;
 }
 </style>
