@@ -7,9 +7,9 @@
 1. cd ./app
   
 2. yarn install
-  
+
 3. yarn build
-  
+  (по умолчанию сборка для Windows, изменяйте package.json)
 4. cd ./build
   
 
