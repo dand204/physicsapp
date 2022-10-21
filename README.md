@@ -10,7 +10,7 @@
   
 3. yarn build
   
-4. cd ./
+4. cd ./build
   
 
 ### Веб-версия
